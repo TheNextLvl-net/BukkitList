@@ -8,7 +8,7 @@ java {
 }
 
 group = "net.nonswag.bkt.list"
-version = "1.0.2"
+version = "1.0.3"
 
 repositories {
     maven {
