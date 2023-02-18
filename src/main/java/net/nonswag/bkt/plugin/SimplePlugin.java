@@ -14,6 +14,22 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 public class SimplePlugin extends JavaPlugin {
 
+    @Override
+    public final void onEnable() {
+        enable();
+        registerListeners();
+        registerCommands();
+    }
+
+    protected void enable() {
+    }
+
+    public void registerCommands() {
+    }
+
+    public void registerListeners() {
+    }
+
     public void registerListener(Listener listener) {
         Bukkit.getPluginManager().registerEvents(listener, this);
     }
