@@ -20,6 +20,7 @@ import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
+import java.util.List;
 
 @Getter(AccessLevel.PROTECTED)
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
@@ -53,7 +54,7 @@ public class GUI implements Listener {
     public void dispose() {
         checkDisposed();
         disposed = true;
-        getInventory().getViewers().forEach(HumanEntity::closeInventory);
+        List.copyOf(getInventory().getViewers()).forEach(HumanEntity::closeInventory);
         HandlerList.unregisterAll(this);
     }
 
