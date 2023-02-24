@@ -8,7 +8,7 @@ java {
 }
 
 group = "net.nonswag.bkt.list"
-version = "1.0.4"
+version = "1.0.5"
 
 repositories {
     maven {
@@ -21,8 +21,8 @@ repositories {
 }
 
 dependencies {
-    implementation("org.spigotmc:spigot-api:1.19-R0.1-SNAPSHOT")
-    implementation("net.nonswag.core:core-api:2.1.2")
+    compileOnly("org.spigotmc:spigot-api:1.19-R0.1-SNAPSHOT")
+    implementation("net.nonswag.core:core-api:2.1.3")
     annotationProcessor("net.nonswag.core:core-api:2.1.2")
 }
 
