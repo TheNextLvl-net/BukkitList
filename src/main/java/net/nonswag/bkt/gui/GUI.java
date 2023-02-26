@@ -99,11 +99,11 @@ public class GUI implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onInventoryClose(InventoryCloseEvent event) {
         if (!getInventory().equals(event.getView().getTopInventory())) return;
-        if (getInventory().getHolder() != null) dispose(false);
+        if (getInventory().getHolder() != null && !isDisposed()) dispose(false);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPluginDisable(PluginDisableEvent event) {
-        if (event.getPlugin().equals(getPlugin())) dispose();
+        if (event.getPlugin().equals(getPlugin()) && !isDisposed()) dispose();
     }
 }
