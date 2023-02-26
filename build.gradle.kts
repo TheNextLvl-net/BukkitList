@@ -5,10 +5,11 @@ plugins {
 
 java {
     withSourcesJar()
+    withJavadocJar()
 }
 
 group = "net.nonswag.bkt.list"
-version = "1.0.6"
+version = "1.0.10"
 
 repositories {
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")

@@ -13,6 +13,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
@@ -40,6 +41,14 @@ public class GUI implements Listener {
         this(plugin, null, title, rows);
     }
 
+    public int getSize() {
+        return getInventory().getSize();
+    }
+
+    public boolean isEmpty(int slot) {
+        return getInventory().getItem(slot) == null;
+    }
+
     public void setSlot(int slot, GUIItem item) {
         checkDisposed();
         getItems().put(slot, item);
@@ -52,17 +61,21 @@ public class GUI implements Listener {
     }
 
     public void dispose() {
+        dispose(true);
+    }
+
+    public void dispose(boolean close) {
         checkDisposed();
         disposed = true;
-        List.copyOf(getInventory().getViewers()).forEach(HumanEntity::closeInventory);
+        if (close) List.copyOf(getInventory().getViewers()).forEach(HumanEntity::closeInventory);
         HandlerList.unregisterAll(this);
     }
 
     protected void formatDefault() {
         checkDisposed();
         ItemStack placeholder = new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).name("§7-§8/§7-");
-        for (int i = 0; i < getInventory().getSize(); i++) {
-            if (getInventory().getItem(i) == null) getInventory().setItem(i, placeholder);
+        for (int i = 0; i < getSize(); i++) {
+            if (isEmpty(i)) getInventory().setItem(i, placeholder);
         }
     }
 
@@ -81,6 +94,12 @@ public class GUI implements Listener {
         } finally {
             event.setCancelled(true);
         }
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onInventoryClose(InventoryCloseEvent event) {
+        if (!getInventory().equals(event.getView().getTopInventory())) return;
+        if (getInventory().getHolder() != null) dispose(false);
     }
 
     @EventHandler(priority = EventPriority.MONITOR)

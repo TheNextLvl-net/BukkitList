@@ -4,8 +4,10 @@ import net.nonswag.bkt.gui.GUIItem;
 import net.nonswag.core.api.annotation.FieldsAreNullableByDefault;
 import net.nonswag.core.api.annotation.MethodsReturnNonnullByDefault;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Arrays;
@@ -37,6 +39,12 @@ public class ItemBuilder extends ItemStack {
         return modify(meta -> meta.setLore(Arrays.asList(lore)));
     }
 
+    public ItemBuilder head(OfflinePlayer player) {
+        return modify(meta -> {
+            if (meta instanceof SkullMeta skull) skull.setOwnerProfile(player.getPlayerProfile());
+        });
+    }
+
     public ItemBuilder modify(Consumer<ItemMeta> modification) {
         ItemMeta itemMeta = getItemMeta();
         if (itemMeta == null) return this;
@@ -47,5 +55,10 @@ public class ItemBuilder extends ItemStack {
 
     public GUIItem toGUIItem(GUIItem.ClickAction action) {
         return guiItem == null ? guiItem = new GUIItem(this, action) : guiItem;
+    }
+
+    public GUIItem toGUIItem() {
+        return toGUIItem(player -> {
+        });
     }
 }
