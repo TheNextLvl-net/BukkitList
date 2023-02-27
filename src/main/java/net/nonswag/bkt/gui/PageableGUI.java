@@ -81,7 +81,7 @@ public abstract class PageableGUI<T> extends GUI {
      * @return whether the page contains elements
      */
     public boolean isPageEmpty(int page) {
-        return page <= 0 || elements.size() < getStartingPoint(page);
+        return page <= 0 || getElements(page).isEmpty();
     }
 
     /**
