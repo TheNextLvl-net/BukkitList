@@ -20,7 +20,7 @@ public abstract class PageableGUI<T> extends GUI {
         super(plugin, owner, title, rows);
         this.elements = elements;
         this.slots = slots;
-        loadPage(1);
+        loadPage(0);
     }
 
     /**
@@ -54,7 +54,7 @@ public abstract class PageableGUI<T> extends GUI {
      * @return the elements on the desired page
      */
     public List<T> getElements(int page) {
-        if (page <= 0) return new ArrayList<>(0);
+        if (page < 0) return new ArrayList<>(0);
         var startingPoint = getStartingPoint(page);
         if (elements.size() < startingPoint) return new ArrayList<>(0);
         return new ArrayList<>(elements).subList(startingPoint, getEndPoint(page));
@@ -81,7 +81,7 @@ public abstract class PageableGUI<T> extends GUI {
      * @return whether the page contains elements
      */
     public boolean isPageEmpty(int page) {
-        return page <= 0 || getElements(page).isEmpty();
+        return page < 0 || getElements(page).isEmpty();
     }
 
     /**
