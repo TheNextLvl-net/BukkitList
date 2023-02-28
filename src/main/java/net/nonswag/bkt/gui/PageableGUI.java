@@ -40,7 +40,7 @@ public abstract class PageableGUI<T> extends GUI {
      * @param page the page to load
      */
     public void loadPage(int page) {
-        getInventory().clear();
+        clear();
         if (!isPageEmpty(page)) {
             this.currentPage = page;
             var slots = Arrays.stream(getSlots()).iterator();

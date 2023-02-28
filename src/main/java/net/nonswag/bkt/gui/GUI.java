@@ -41,6 +41,11 @@ public class GUI implements Listener {
         this(plugin, null, title, rows);
     }
 
+    public void clear() {
+        getInventory().clear();
+        getItems().clear();
+    }
+
     public int getSize() {
         return getInventory().getSize();
     }
