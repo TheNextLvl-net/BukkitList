@@ -20,7 +20,7 @@ repositories {
 dependencies {
     compileOnly("org.projectlombok:lombok:1.18.22")
     compileOnly("org.spigotmc:spigot-api:1.19-R0.1-SNAPSHOT")
-    implementation("net.nonswag.core:core-api:2.1.4")
+    implementation("net.nonswag.core:core-api:2.1.5")
     annotationProcessor("org.projectlombok:lombok:1.18.22")
 }
 
