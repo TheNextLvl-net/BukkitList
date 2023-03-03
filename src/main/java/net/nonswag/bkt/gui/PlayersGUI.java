@@ -4,13 +4,13 @@ import net.nonswag.bkt.item.ItemBuilder;
 import net.nonswag.bkt.plugin.SimplePlugin;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.entity.Player;
 
 import java.util.List;
 
 public class PlayersGUI extends PageableGUI<OfflinePlayer> {
 
-    public PlayersGUI(SimplePlugin plugin, InventoryHolder owner, String title, int rows, List<OfflinePlayer> elements, int[] slots) {
+    public PlayersGUI(SimplePlugin plugin, Player owner, String title, int rows, List<OfflinePlayer> elements, int[] slots) {
         super(plugin, owner, title, rows, elements, slots);
     }
 

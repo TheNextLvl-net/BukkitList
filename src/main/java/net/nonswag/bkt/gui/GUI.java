@@ -8,6 +8,7 @@ import net.nonswag.bkt.plugin.SimplePlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.HandlerList;
@@ -16,7 +17,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nullable;
@@ -32,7 +32,7 @@ public class GUI implements Listener {
     @Getter(AccessLevel.PROTECTED)
     private boolean disposed;
 
-    public GUI(SimplePlugin plugin, @Nullable InventoryHolder owner, String title, int rows) {
+    public GUI(SimplePlugin plugin, @Nullable Player owner, String title, int rows) {
         this(Bukkit.createInventory(owner, rows * 9, title), plugin);
         getPlugin().registerListener(this);
     }
@@ -60,7 +60,7 @@ public class GUI implements Listener {
         getInventory().setItem(slot, item.stack());
     }
 
-    public void open(HumanEntity player) {
+    public void open(Player player) {
         checkDisposed();
         player.openInventory(getInventory());
     }
@@ -90,10 +90,11 @@ public class GUI implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onInventoryClick(InventoryClickEvent event) {
+        if (!(event.getWhoClicked() instanceof Player player)) return;
         if (getInventory().equals(event.getView().getTopInventory())) try {
             if (event.getView().getBottomInventory().equals(event.getClickedInventory())) return;
             GUIItem item = getItems().get(event.getSlot());
-            if (item != null) item.action().click(event.getClick(), event.getWhoClicked());
+            if (item != null) item.action().click(event.getClick(), player);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

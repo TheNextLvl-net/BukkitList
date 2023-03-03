@@ -4,7 +4,7 @@ import lombok.Getter;
 import net.nonswag.bkt.item.ItemBuilder;
 import net.nonswag.bkt.plugin.SimplePlugin;
 import org.bukkit.Material;
-import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,7 +16,7 @@ public abstract class PageableGUI<T> extends GUI {
     private final int[] slots;
     private int currentPage;
 
-    public PageableGUI(SimplePlugin plugin, InventoryHolder owner, String title, int rows, List<T> elements, int[] slots) {
+    public PageableGUI(SimplePlugin plugin, Player owner, String title, int rows, List<T> elements, int[] slots) {
         super(plugin, owner, title, rows);
         this.elements = elements;
         this.slots = slots;
@@ -100,8 +100,8 @@ public abstract class PageableGUI<T> extends GUI {
 
     @Override
     protected void formatDefault() {
-        var previous = new ItemBuilder(Material.ARROW).name("§fGo to page§8: §a" + (getCurrentPage() - 1)).toGUIItem(player -> previousPage());
-        var next = new ItemBuilder(Material.ARROW).name("§fGo to page§8: §a" + (getCurrentPage() + 1)).toGUIItem(player -> nextPage());
+        var previous = new ItemBuilder(Material.ARROW).name("§fGo to page§8: §a" + (getCurrentPage() - 1)).toGUIItem((type, player) -> previousPage());
+        var next = new ItemBuilder(Material.ARROW).name("§fGo to page§8: §a" + (getCurrentPage() + 1)).toGUIItem((type, player) -> nextPage());
         if (isEmpty(getSize() - 1) && !isPageEmpty(getCurrentPage() + 1)) setSlot(getSize() - 1, next);
         if (isEmpty(getSize() - 9) && !isPageEmpty(getCurrentPage() - 1)) setSlot(getSize() - 9, previous);
         super.formatDefault();
