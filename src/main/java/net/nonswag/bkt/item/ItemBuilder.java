@@ -63,12 +63,15 @@ public class ItemBuilder extends ItemStack {
         return this;
     }
 
-    public GUIItem toGUIItem(GUIItem.ClickAction action) {
+    public GUIItem toGUIItem(GUIItem.Action action) {
         return guiItem == null ? guiItem = new GUIItem(this, action) : guiItem;
     }
 
-    public GUIItem toGUIItem() {
-        return toGUIItem((type, player) -> {
-        });
+    public GUIItem toGUIItem(GUIItem.PlayerAction action) {
+        return toGUIItem((GUIItem.Action) action);
+    }
+
+    public GUIItem toGUIItem(GUIItem.RunAction action) {
+        return toGUIItem((GUIItem.Action) action);
     }
 }
