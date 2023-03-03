@@ -16,7 +16,8 @@ public class PlayersGUI extends PageableGUI<OfflinePlayer> {
 
     @Override
     public GUIItem constructItem(OfflinePlayer player) {
-        return new ItemBuilder(Material.PLAYER_HEAD).head(player).toGUIItem();
+        return new ItemBuilder(Material.PLAYER_HEAD).head(player).toGUIItem(() -> {
+        });
     }
 
     @Override
