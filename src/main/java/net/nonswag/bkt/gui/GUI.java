@@ -93,7 +93,7 @@ public class GUI implements Listener {
         if (getInventory().equals(event.getView().getTopInventory())) try {
             if (event.getView().getBottomInventory().equals(event.getClickedInventory())) return;
             GUIItem item = getItems().get(event.getSlot());
-            if (item != null) item.action().click(event.getWhoClicked());
+            if (item != null) item.action().click(event.getClick(), event.getWhoClicked());
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

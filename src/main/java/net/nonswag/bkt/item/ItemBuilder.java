@@ -10,6 +10,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Consumer;
 
@@ -39,6 +40,15 @@ public class ItemBuilder extends ItemStack {
         return modify(meta -> meta.setLore(Arrays.asList(lore)));
     }
 
+    public ItemBuilder appendLore(String... lore) {
+        return modify(meta -> {
+            var list = new ArrayList<String>();
+            if (meta.getLore() != null) list.addAll(meta.getLore());
+            list.addAll(Arrays.asList(lore));
+            meta.setLore(list);
+        });
+    }
+
     public ItemBuilder head(OfflinePlayer player) {
         return modify(meta -> {
             if (meta instanceof SkullMeta skull) skull.setOwnerProfile(player.getPlayerProfile());
@@ -58,7 +68,7 @@ public class ItemBuilder extends ItemStack {
     }
 
     public GUIItem toGUIItem() {
-        return toGUIItem(player -> {
+        return toGUIItem((type, player) -> {
         });
     }
 }
