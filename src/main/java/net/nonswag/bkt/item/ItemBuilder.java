@@ -8,6 +8,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.profile.PlayerProfile;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
@@ -50,9 +51,13 @@ public class ItemBuilder extends ItemStack {
     }
 
     public ItemBuilder head(OfflinePlayer player) {
-        return modify(meta -> {
-            if (meta instanceof SkullMeta skull) skull.setOwnerProfile(player.getPlayerProfile());
-        });
+        return head(player.getPlayerProfile());
+    }
+
+    public ItemBuilder head(PlayerProfile profile) {
+        return profile.isComplete() ? modify(meta -> {
+            if (meta instanceof SkullMeta skull) skull.setOwnerProfile(profile);
+        }) : this;
     }
 
     public ItemBuilder modify(Consumer<ItemMeta> modification) {
