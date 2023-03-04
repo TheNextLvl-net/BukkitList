@@ -105,7 +105,7 @@ public abstract class PageableGUI<T> extends GUI {
      * @return the text to be displayed on the navigation arrows
      */
     public String formattedPage(int page) {
-        return "§fGo to page§8: §a" + page;
+        return "§fGo to page§8: §a" + (page + 1);
     }
 
     @Override

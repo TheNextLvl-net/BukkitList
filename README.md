@@ -12,6 +12,6 @@ A library that provides simple to use shortcuts to overcomplicated bukkit relate
 <dependency>
   <groupId>net.nonswag.bkt</groupId>
   <artifactId>bukkit-list</artifactId>
-  <version>1.1.3</version>
+  <version>1.1.4</version>
 </dependency>
 ````
