@@ -33,7 +33,9 @@ public abstract class PageableGUI<T> extends GUI {
     /**
      * This method is called after the page was successfully loaded
      */
-    public abstract void pageLoaded();
+    public void pageLoaded() {
+        formatDefault();
+    }
 
     /**
      * loads the desired page
@@ -98,10 +100,18 @@ public abstract class PageableGUI<T> extends GUI {
         loadPage(getCurrentPage() - 1);
     }
 
+    /**
+     * @param page the target page
+     * @return the text to be displayed on the navigation arrows
+     */
+    public String formattedPage(int page) {
+        return "§fGo to page§8: §a" + page;
+    }
+
     @Override
     protected void formatDefault() {
-        var previous = new ItemBuilder(Material.ARROW).name("§fGo to page§8: §a" + (getCurrentPage() - 1)).toGUIItem((type, player) -> previousPage());
-        var next = new ItemBuilder(Material.ARROW).name("§fGo to page§8: §a" + (getCurrentPage() + 1)).toGUIItem((type, player) -> nextPage());
+        var previous = new ItemBuilder(Material.ARROW).name(formattedPage(getCurrentPage() - 1)).toGUIItem(this::previousPage);
+        var next = new ItemBuilder(Material.ARROW).name(formattedPage(getCurrentPage() + 1)).toGUIItem(this::nextPage);
         if (isEmpty(getSize() - 1) && !isPageEmpty(getCurrentPage() + 1)) setSlot(getSize() - 1, next);
         if (isEmpty(getSize() - 9) && !isPageEmpty(getCurrentPage() - 1)) setSlot(getSize() - 9, previous);
         super.formatDefault();

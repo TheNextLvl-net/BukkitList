@@ -9,7 +9,7 @@ java {
 }
 
 group = "net.nonswag.bkt.list"
-version = "1.1.1"
+version = "1.1.3"
 
 repositories {
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
